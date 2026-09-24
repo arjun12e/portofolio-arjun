@@ -65,3 +65,28 @@ CREATE POLICY "Authenticated can delete milestone images"
     ON storage.objects FOR DELETE
     TO authenticated
     USING (bucket_id = 'milestone-images');
+
+-- ============================================================
+-- Pesan dari form kontak publik
+-- ============================================================
+CREATE TABLE IF NOT EXISTS public.contact_messages (
+    id BIGSERIAL PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    message TEXT NOT NULL CHECK (char_length(message) <= 2000)
+);
+
+ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
+
+-- Pengunjung anonim hanya boleh INSERT (tidak bisa membaca pesan orang lain)
+CREATE POLICY "Anyone can send contact messages"
+    ON public.contact_messages FOR INSERT
+    TO anon, authenticated
+    WITH CHECK (true);
+
+-- Hanya admin (terautentikasi) yang boleh membaca
+CREATE POLICY "Authenticated can read contact messages"
+    ON public.contact_messages FOR SELECT
+    TO authenticated
+    USING (true);
