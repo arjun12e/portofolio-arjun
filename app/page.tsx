@@ -47,8 +47,8 @@ export default async function Home() {
     <>
       <header className="site-header">
         <div className="container">
-          <p className="kicker">Portofolio &amp; Milestone Tracker</p>
-          <h1>Arjun — IT Practitioner &amp; Developer</h1>
+          <p className="kicker">Portofolio &amp;</p>
+          <h1>Arjun Sefuloh — IT Practitioner &amp; Developer</h1>
           <p className="lede">
             Rekam jejak proyek Industrial IoT, otomatisasi industri, dan
             pengembangan software kustom — diperbarui secara langsung setiap
